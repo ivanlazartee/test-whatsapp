@@ -114,7 +114,14 @@ const RECOS = {
   ],
 };
 
-const RECO_SIGUIENTE = { necesita: null, titulo: "Automatizar el próximo paso", texto: "Ya tenés lo básico. Lo siguiente es conectar tus herramientas para que el pedido, el turno o la consulta te lleguen sin que tengas que copiar nada a mano." };
+// Si ya tiene todo lo básico, le ofrecemos mejorar lo que tiene
+const RECOS_YA_TIENE = [
+  { necesita: null, titulo: "Rediseño y nuevas funciones", texto: "Ya tenés lo básico. Podemos renovar el diseño de tu web o proyecto y sumarle lo que hoy le falta, para que responda más preguntas sola y se vea profesional." },
+  { necesita: null, titulo: "Mantenimiento mensual", texto: "Precios, fotos y horarios siempre al día, sin que tengas que tocar nada. Me pasás los cambios por WhatsApp y yo los actualizo." },
+];
+
+// Si ya tiene web o catálogo, también le ofrecemos mantenerlo
+const RECO_MANTENIMIENTO = RECOS_YA_TIENE[1];
 
 const TIP_RAPIDAS = { titulo: "Activá las respuestas rápidas", texto: "En WhatsApp Business podés guardar respuestas y mandarlas escribiendo \"/\". Guardá las 5 preguntas que más te hacen: es gratis y lo hacés hoy." };
 
@@ -369,9 +376,13 @@ function renderRecos(r) {
   const tiene = r.herramientas || [];
   const opciones = RECOS[r.rubro] || RECOS.otro;
   const faltan = opciones.filter((o) => !tiene.includes(o.necesita));
-  const elegidas = faltan.length ? faltan : [RECO_SIGUIENTE];
+  const elegidas = faltan.length ? faltan : RECOS_YA_TIENE;
 
   const items = elegidas.map((o, i) => crearReco(o, i === 0 ? "Lo más importante" : "Después"));
+
+  // Tiene web o catálogo pero todavía le falta algo: sumamos el mantenimiento
+  const tieneAlgoOnline = tiene.includes("web") || tiene.includes("catalogo");
+  if (faltan.length && tieneAlgoOnline) items.push(crearReco(RECO_MANTENIMIENTO, "Para lo que ya tenés"));
   if (!tiene.includes("rapidas")) items.push(crearReco(TIP_RAPIDAS, "Gratis, hoy mismo", true));
 
   $("recos").replaceChildren(...items);
