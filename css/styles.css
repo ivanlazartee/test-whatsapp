@@ -1,0 +1,616 @@
+/* =========================================================
+   Test "¿Cuánto tiempo perdés contestando WhatsApp?"
+   Marca NorteDigitalDev — paleta Tafí
+   ========================================================= */
+
+:root {
+  --noche: #0F1A17;
+  --noche-2: #172520;    /* superficies */
+  --noche-3: #1F302A;    /* hover */
+  --linea: #2C3F37;
+  --cerro: #3E6B52;
+  --musgo: #8FA878;
+  --ocre: #C99A3E;
+  --ocre-claro: #DDB25A;
+  --piedra: #E4DFD3;
+  --piedra-2: #AEB3A8;   /* texto secundario */
+
+  --font: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --radio: 10px;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font);
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  color: var(--piedra);
+  background: var(--noche);
+  -webkit-font-smoothing: antialiased;
+}
+
+main { flex: 1; }
+
+img { display: block; max-width: 100%; height: auto; }
+
+h1, h2, h3, p { margin: 0; }
+
+a { color: inherit; }
+
+button { font: inherit; color: inherit; }
+
+[hidden] { display: none !important; }
+
+.container {
+  width: min(100% - 2rem, 1120px);
+  margin-inline: auto;
+}
+
+:focus-visible {
+  outline: 3px solid var(--ocre);
+  outline-offset: 3px;
+}
+
+/* ---------- Header y footer ---------- */
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  height: 72px;
+}
+
+.header__logo img { width: 170px; }
+
+.header__ig {
+  font-size: 0.92rem;
+  color: var(--piedra-2);
+  text-decoration: none;
+}
+
+.header__ig:hover { color: var(--piedra); }
+
+.footer {
+  border-top: 1px solid var(--linea);
+  font-size: 0.9rem;
+  color: var(--piedra-2);
+}
+
+.footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  padding-block: 1.75rem;
+}
+
+.footer img { width: 140px; }
+
+/* ---------- Botones ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 52px;
+  padding: 0.85rem 1.6rem;
+  border: 0;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 1.02rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s, border-color 0.2s;
+}
+
+.btn:active { transform: translateY(1px); }
+
+.btn--principal {
+  background: var(--ocre);
+  color: var(--noche);
+}
+
+.btn--principal:hover { background: var(--ocre-claro); }
+
+.btn--secundario {
+  background: transparent;
+  border: 1.5px solid var(--linea);
+}
+
+.btn--secundario:hover { border-color: var(--musgo); }
+
+.btn--texto {
+  background: none;
+  padding-inline: 0.5rem;
+  color: var(--piedra-2);
+  font-weight: 500;
+}
+
+.btn--texto:hover { color: var(--piedra); }
+
+/* ---------- Inicio ---------- */
+
+.intro { padding-block: clamp(1.5rem, 6vw, 4.5rem) clamp(3rem, 8vw, 6rem); }
+
+.intro__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: center;
+}
+
+.intro__titulo {
+  font-size: clamp(2.3rem, 5.4vw, 4.3rem);
+  font-weight: 760;
+  font-stretch: 112%;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  max-width: 14ch;
+}
+
+.intro__bajada {
+  margin: 1.5rem 0 2rem;
+  max-width: 44ch;
+  font-size: 1.15rem;
+  color: var(--piedra-2);
+}
+
+.intro__nota {
+  margin-top: 0.85rem;
+  font-size: 0.9rem;
+  color: var(--piedra-2);
+}
+
+/* El chat */
+.chat {
+  background: var(--noche-2);
+  border: 1px solid var(--linea);
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.chat__barra {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.9rem 1.1rem;
+  border-bottom: 1px solid var(--linea);
+}
+
+.chat__avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--cerro);
+}
+
+.chat__nombre { font-weight: 650; }
+
+.chat__sinleer {
+  margin-left: auto;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  background: var(--ocre);
+  color: var(--noche);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.chat__lista {
+  list-style: none;
+  margin: 0;
+  padding: 1.25rem 1.1rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6rem;
+}
+
+.burbuja {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+  max-width: 85%;
+  padding: 0.55rem 0.8rem;
+  border-radius: 4px 16px 16px 16px;
+  background: var(--piedra);
+  color: var(--noche);
+  font-weight: 500;
+  animation: aparecer 0.45s both;
+}
+
+.burbuja time {
+  font-size: 0.72rem;
+  color: #6E746B;
+  font-variant-numeric: tabular-nums;
+}
+
+.burbuja--ultima { background: var(--musgo); }
+
+/* Los mensajes llegan uno atrás de otro, como pasa de verdad */
+.burbuja:nth-child(1) { animation-delay: 0.3s; }
+.burbuja:nth-child(2) { animation-delay: 0.75s; }
+.burbuja:nth-child(3) { animation-delay: 1.2s; }
+.burbuja:nth-child(4) { animation-delay: 1.65s; }
+.burbuja:nth-child(5) { animation-delay: 2.1s; }
+.burbuja:nth-child(6) { animation-delay: 2.55s; }
+
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(8px) scale(0.97); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ---------- Preguntas ---------- */
+
+.quiz { padding-block: clamp(1.5rem, 5vw, 3.5rem) 4rem; }
+
+.quiz__inner { max-width: 640px; }
+
+.progreso__texto {
+  font-size: 0.9rem;
+  color: var(--piedra-2);
+  margin-bottom: 0.5rem;
+}
+
+.progreso__barra {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--linea);
+  overflow: hidden;
+}
+
+.progreso__barra span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--musgo);
+  border-radius: inherit;
+  transition: width 0.35s ease;
+}
+
+.pregunta { margin-top: 2.25rem; }
+
+.pregunta__titulo {
+  font-size: clamp(1.6rem, 4.6vw, 2.3rem);
+  font-weight: 740;
+  font-stretch: 108%;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+
+.pregunta__titulo:focus { outline: none; }
+
+.pregunta__ayuda {
+  margin-top: 0.75rem;
+  color: var(--piedra-2);
+  max-width: 52ch;
+}
+
+.opciones {
+  display: grid;
+  gap: 0.65rem;
+  margin-top: 1.75rem;
+}
+
+.opcion {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  width: 100%;
+  min-height: 60px;
+  padding: 0.9rem 1.1rem;
+  border: 1.5px solid var(--linea);
+  border-radius: var(--radio);
+  background: var(--noche-2);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.opcion:hover { border-color: var(--musgo); background: var(--noche-3); }
+
+.opcion__marca {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border: 1.5px solid var(--piedra-2);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.opcion--multiple .opcion__marca { border-radius: 6px; }
+
+.opcion__texto { display: grid; gap: 0.1rem; }
+
+.opcion__titulo { font-weight: 650; }
+
+.opcion__desc {
+  font-size: 0.88rem;
+  color: var(--piedra-2);
+}
+
+.opcion[aria-pressed="true"] {
+  border-color: var(--musgo);
+  background: color-mix(in srgb, var(--cerro) 45%, var(--noche-2));
+}
+
+.opcion[aria-pressed="true"] .opcion__marca {
+  border-color: var(--musgo);
+  background: var(--musgo);
+}
+
+.opcion[aria-pressed="true"] .opcion__marca::after {
+  content: "";
+  width: 6px;
+  height: 11px;
+  border: solid var(--noche);
+  border-width: 0 2.5px 2.5px 0;
+  transform: translateY(-1px) rotate(45deg);
+}
+
+/* Días por semana */
+.dias {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border: 1.5px solid var(--linea);
+  border-radius: var(--radio);
+  background: var(--noche-2);
+}
+
+.dias__valor {
+  font-size: 3.4rem;
+  font-weight: 800;
+  font-stretch: 115%;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.dias__valor span {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--piedra-2);
+}
+
+.dias input[type="range"] {
+  width: 100%;
+  margin-top: 1.5rem;
+  accent-color: var(--musgo);
+  height: 28px;
+  cursor: pointer;
+}
+
+.dias__escala {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--piedra-2);
+  padding-inline: 4px;
+}
+
+.quiz__nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+/* ---------- Resultado ---------- */
+
+.resultado { padding-block: clamp(2rem, 6vw, 4rem) 4rem; }
+
+.resultado__inner { max-width: 680px; }
+
+.resultado__intro {
+  font-size: 1.15rem;
+  color: var(--piedra-2);
+}
+
+.resultado__intro:focus { outline: none; }
+
+.resultado__numero {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin-top: 0.25rem;
+  line-height: 0.9;
+}
+
+.resultado__numero strong {
+  font-size: clamp(5.5rem, 26vw, 10rem);
+  font-weight: 800;
+  font-stretch: 118%;
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+}
+
+.resultado__numero span {
+  font-size: clamp(1.5rem, 5vw, 2.2rem);
+  font-weight: 650;
+  font-stretch: 110%;
+  color: var(--musgo);
+}
+
+.resultado__jornadas {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+}
+
+/* Cada cuadradito es una hora; cada fila de 8, una jornada */
+.jornadas {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 4px;
+  max-width: 260px;
+  margin-top: 1rem;
+}
+
+.jornadas span {
+  aspect-ratio: 1;
+  border-radius: 3px;
+  background: var(--cerro);
+  animation: aparecer 0.3s both;
+}
+
+.jornadas span.rep { background: var(--ocre); }
+
+.recuperable {
+  margin-top: 1.75rem;
+  padding: 1.1rem 1.25rem;
+  border-left: 4px solid var(--ocre);
+  background: var(--noche-2);
+  border-radius: 0 var(--radio) var(--radio) 0;
+  font-size: 1.08rem;
+}
+
+.recuperable strong { color: var(--ocre-claro); }
+
+.calculo {
+  margin-top: 1.25rem;
+  font-size: 0.95rem;
+}
+
+.calculo summary {
+  cursor: pointer;
+  width: fit-content;
+  color: var(--piedra-2);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.calculo ol {
+  margin: 1rem 0 0;
+  padding-left: 1.3rem;
+  display: grid;
+  gap: 0.45rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.calculo__nota {
+  margin-top: 0.85rem;
+  color: var(--piedra-2);
+  font-size: 0.88rem;
+}
+
+.resultado__subtitulo {
+  margin-top: 3rem;
+  font-size: 1.6rem;
+  font-weight: 740;
+  font-stretch: 108%;
+  letter-spacing: -0.02em;
+}
+
+.recos {
+  list-style: none;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.reco {
+  padding: 1.15rem 1.25rem;
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  background: var(--noche-2);
+}
+
+.reco h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+.reco p { color: var(--piedra-2); }
+
+.reco__etiqueta {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  padding: 0.1rem 0.55rem;
+  border-radius: 999px;
+  background: var(--cerro);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.reco__etiqueta--gratis { background: var(--musgo); color: var(--noche); }
+
+.cta {
+  margin-top: 2.5rem;
+  padding: clamp(1.5rem, 5vw, 2.25rem);
+  border-radius: 18px;
+  background: var(--cerro);
+}
+
+.cta__titulo {
+  font-size: clamp(1.45rem, 4.4vw, 1.9rem);
+  font-weight: 760;
+  font-stretch: 108%;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.cta__texto {
+  margin: 0.75rem 0 1.4rem;
+  max-width: 48ch;
+}
+
+.btn--wa { width: 100%; }
+
+.acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 1.5rem;
+  transform: translateX(-50%);
+  padding: 0.7rem 1.1rem;
+  border-radius: 999px;
+  background: var(--piedra);
+  color: var(--noche);
+  font-weight: 600;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+}
+
+.toast.visible { opacity: 1; }
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 820px) {
+  .intro__grid { grid-template-columns: 1fr; }
+
+  .intro .btn--principal { width: 100%; }
+
+  .intro__nota { text-align: center; }
+}
+
+@media (max-width: 480px) {
+  .header__logo img { width: 150px; }
+  .header__ig { font-size: 0.85rem; }
+  .acciones .btn { flex: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    transition-duration: 0.01ms !important;
+  }
+}
