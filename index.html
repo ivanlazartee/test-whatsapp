@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¿Cuánto tiempo perdés contestando WhatsApp? — NorteDigitalDev</title>
+  <meta name="description" content="Test de 1 minuto: calculá cuántas horas por mes se te van respondiendo las mismas preguntas por WhatsApp y cómo recuperarlas.">
+  <meta name="theme-color" content="#0F1A17">
+
+  <!-- Vista previa al compartir el link (WhatsApp, Instagram, Facebook) -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://test-whatsapp.vercel.app/">
+  <meta property="og:title" content="¿Cuánto tiempo perdés contestando WhatsApp?">
+  <meta property="og:description" content="Test de 1 minuto para tu negocio. Mirá cuántas horas por mes se te van en preguntas repetidas.">
+  <meta property="og:image" content="https://test-whatsapp.vercel.app/img/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header__inner">
+      <a href="./" class="header__logo" aria-label="NorteDigitalDev, inicio">
+        <img src="img/logo.svg" alt="nortedigital.dev" width="190" height="29">
+      </a>
+      <a class="header__ig" href="https://instagram.com/nortedigital.dev" target="_blank" rel="noopener">@nortedigital.dev</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- PANTALLA 1: INICIO -->
+    <section class="pantalla intro" id="pantalla-intro">
+      <div class="container intro__grid">
+        <div class="intro__texto">
+          <h1 class="intro__titulo">¿Cuánto tiempo perdés en tu negocio contestando WhatsApp?</h1>
+          <p class="intro__bajada">Seis preguntas, un minuto. Al final ves cuántas horas por mes se te van en consultas repetidas y cómo recuperarlas.</p>
+          <button type="button" class="btn btn--principal" id="btn-empezar">Hacer el test</button>
+          <p class="intro__nota">Gratis, sin registrarte.</p>
+        </div>
+
+        <!-- El chat de todos los días -->
+        <div class="chat" aria-hidden="true">
+          <div class="chat__barra">
+            <span class="chat__avatar"></span>
+            <span class="chat__nombre">Clientes</span>
+            <span class="chat__sinleer">48 sin leer</span>
+          </div>
+          <ul class="chat__lista">
+            <li class="burbuja">Hola! ¿Precio? <time>09:12</time></li>
+            <li class="burbuja">¿Hasta qué hora abren? <time>09:15</time></li>
+            <li class="burbuja">¿Hacen envíos? <time>09:31</time></li>
+            <li class="burbuja">Hola, ¿precio? <time>09:40</time></li>
+            <li class="burbuja">¿Tienen stock del negro? <time>10:02</time></li>
+            <li class="burbuja burbuja--ultima">¿¿Precio?? <time>10:05</time></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANTALLA 2: PREGUNTAS (las arma app.js) -->
+    <section class="pantalla quiz" id="pantalla-quiz" hidden>
+      <div class="container quiz__inner">
+        <div class="progreso">
+          <p class="progreso__texto" id="progreso-texto">Pregunta 1 de 6</p>
+          <div class="progreso__barra"><span id="progreso-relleno"></span></div>
+        </div>
+        <form id="form-pregunta" class="pregunta" novalidate></form>
+        <div class="quiz__nav">
+          <button type="button" class="btn btn--texto" id="btn-atras">Atrás</button>
+          <button type="button" class="btn btn--principal" id="btn-siguiente" hidden>Siguiente</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANTALLA 3: RESULTADO -->
+    <section class="pantalla resultado" id="pantalla-resultado" hidden>
+      <div class="container resultado__inner">
+        <p class="resultado__intro" id="resultado-intro" tabindex="-1">Por mes, contestando WhatsApp pasás</p>
+        <p class="resultado__numero"><strong id="horas-total">0</strong> <span>horas</span></p>
+        <p class="resultado__jornadas" id="jornadas-texto"></p>
+        <div class="jornadas" id="jornadas" aria-hidden="true"></div>
+
+        <div class="recuperable">
+          <p><strong id="horas-recuperables">0 horas</strong> de ese tiempo son preguntas repetidas que se pueden responder solas.</p>
+        </div>
+
+        <details class="calculo">
+          <summary>Ver cómo lo calculamos</summary>
+          <ol id="calculo-pasos"></ol>
+          <p class="calculo__nota">Es una estimación con tus respuestas. Suponemos que una web o catálogo con la información clara resuelve 7 de cada 10 preguntas repetidas.</p>
+        </details>
+
+        <h2 class="resultado__subtitulo">Qué te ayudaría</h2>
+        <ul class="recos" id="recos"></ul>
+
+        <div class="cta">
+          <h2 class="cta__titulo">Te armo un diagnóstico gratis de tu negocio</h2>
+          <p class="cta__texto">Me escribís por WhatsApp con este resultado y te digo qué conviene hacer primero, sin compromiso.</p>
+          <a class="btn btn--principal btn--wa" id="btn-whatsapp" href="#" target="_blank" rel="noopener">Quiero mi diagnóstico gratis</a>
+        </div>
+
+        <div class="acciones">
+          <button type="button" class="btn btn--secundario" id="btn-compartir">Compartir el test</button>
+          <button type="button" class="btn btn--texto" id="btn-reiniciar">Volver a hacerlo</button>
+        </div>
+        <p class="toast" id="toast" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <img src="img/logo.svg" alt="nortedigital.dev" width="150" height="23">
+      <p>Webs, catálogos y apps para negocios. <a href="https://instagram.com/nortedigital.dev" target="_blank" rel="noopener">@nortedigital.dev</a></p>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
